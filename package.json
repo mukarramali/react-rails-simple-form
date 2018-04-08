@@ -1,0 +1,33 @@
+{
+  "name": "react-rails-simple-form",
+  "version": "1.0.0",
+  "description": "Form helper for react",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mukarramali/react-rails-simple-form.git"
+  },
+  "keywords": [
+    "react",
+    "helper",
+    "form"
+  ],
+  "author": "Mukarram Ali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mukarramali/react-rails-simple-form/issues"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.1",
+    "react-transition-group": "^2.3.0"
+  },
+  "peerDependencies": {
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "reactstrap": "^5.0.0"
+  },
+  "homepage": "https://github.com/mukarramali/react-rails-simple-form#readme"
+}
