@@ -1,3 +1,3 @@
-export * from "./Form"
-export * from "./Input"
+export * from "./forms"
+export * from "./inputs"
 export * from "./utils"
