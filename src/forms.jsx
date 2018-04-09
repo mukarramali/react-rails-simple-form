@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { nameWithContext, InputTag } from './utils';
 
-export const Input = nameWithContext(InputTag);
+export const FormInput = nameWithContext(InputTag);
 
 export const HiddenFieldTag = props => (
   <input type="hidden" readOnly {...props} />
