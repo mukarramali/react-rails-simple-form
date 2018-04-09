@@ -1,8 +1,8 @@
 {
   "name": "react-rails-simple-form",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Form helper for react",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "npm run build:lib && npm run build:dist",
     "build:dist": "NODE_ENV=production webpack",
