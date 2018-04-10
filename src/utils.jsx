@@ -49,7 +49,7 @@ export const nameWithContext = (Lower, prop = "name") => {
   return higher
 }
 
-const renderGenericComponent = (Type, value, attributes) => {
+const renderGenericComponent = (Type, value, label, attributes) => {
   let key = getNewKey();
   switch(Type){
     case 'BreadcrumbItem':
@@ -61,16 +61,21 @@ const renderGenericComponent = (Type, value, attributes) => {
                   {value}
                 </Label>
               </FormGroup>);
+    case 'option':
+      return (<option key={key} value={value} {...attributes}>{label}</option>);
     default:
       return (<Type key={key} {...attributes}>{value}</Type>);
   }
 }
 
+
 // To add a new item, first update in GenericComponent hash
 //Example: {renderChildren({collection: ['Profile', 'Personal'], type: 'BreadcrumbItem', conditional: {index: 1, attributes: 'active'}})}
 
-export const renderChildren = (options)=>{
+export const renderGenericChildren = (options)=>{
   let list = [];
+  let value_method = options.value_method;
+  let label_method = options.label_method;
   let children = options.collection;
   let type = options.type;
   let childAttributes = options.childAttributes != undefined ? options.childAttributes : {};
@@ -81,7 +86,7 @@ export const renderChildren = (options)=>{
     if(conditional.index == index){
       childAttributes = mergeAttributes(childAttributes, conditional.attributes);
     }
-    let ChildItem = renderGenericComponent(type, child, childAttributes);
+    let ChildItem = typeof(child) == 'object' && label_method != null && value_method != null ? renderGenericComponent(type, child[value_method], child[label_method], childAttributes) : renderGenericComponent(type, child, '', childAttributes);
     list.push(ChildItem);
   })
   return list;
