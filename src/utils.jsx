@@ -86,7 +86,7 @@ export const renderGenericChildren = (options)=>{
     if(conditional.index == index){
       childAttributes = mergeAttributes(childAttributes, conditional.attributes);
     }
-    let ChildItem = typeof(child) == 'object' && label_method != null && value_method != null ? renderGenericComponent(type, child[value_method], child[label_method], childAttributes) : renderGenericComponent(type, child, '', childAttributes);
+    let ChildItem = typeof(child) == 'object' && label_method != null && value_method != null ? renderGenericComponent(type, child[value_method], child[label_method], childAttributes) : renderGenericComponent(type, child, child, childAttributes);
     list.push(ChildItem);
   })
   return list;
