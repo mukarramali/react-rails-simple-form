@@ -21,9 +21,18 @@ class Input extends React.Component {
     super(props);
   }
 
-  renderInput = function(type, name, value, isValid, children, inputAttributes){
+  renderInput = function(props){
+    let {
+      type,
+      name,
+      value,
+      isValid,
+      children,
+      childrenOnly,
+      inputAttributes
+    } = props;
     let invalidClass = isValid ? '' : 'is-invalid';
-    return type=="radio" ? children : (
+    return type=="radio" || childrenOnly ? children : (
       <FormInput type={type || 'text'} className={invalidClass} name={name} defaultValue={value} {...inputAttributes}>
         {children}
       </FormInput>);
@@ -43,10 +52,17 @@ class Input extends React.Component {
       inputAttributes,
       hintAttributes,
       errors,
+      childrenOnly,
       ...attributes
     } = this.props;
     let isValid = (errors == undefined);
-    let inputOrChildren = this.renderInput(type, name, value, isValid, children, inputAttributes);
+    let inputOrChildren = this.renderInput({'type': type, 
+                                            'name': name, 
+					    'value': value, 
+					    'isValid': isValid, 
+					    'children': children, 
+					    'childrenOnly': childrenOnly, 
+					    'inputAttributes': inputAttributes});
     return (
       <FormGroup {...formGroupAttributes}>
         <Label htmlFor={name} {...labelAttributes}>{label}</Label>
