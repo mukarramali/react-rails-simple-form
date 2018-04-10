@@ -39,7 +39,7 @@ export class FormTag extends React.Component {
 
     const csrfToken =
       this.props.csrfToken ||
-      document.querySelector("head meta[name='csrf-token']").content
+      document.querySelector("meta[name='csrf-token']").content
 
     return (
       <form
