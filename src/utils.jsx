@@ -68,26 +68,31 @@ const renderGenericComponent = (Type, value, label, attributes) => {
   }
 }
 
-
-// To add a new item, first update in GenericComponent hash
-//Example: {renderChildren({collection: ['Profile', 'Personal'], type: 'BreadcrumbItem', conditional: {index: 1, attributes: 'active'}})}
+//Example: {renderGenericChildren({collection: ['Profile', 'Personal'], type: 'BreadcrumbItem', conditional: {index: 1, attributes: 'active'}})}
 
 export const renderGenericChildren = (options)=>{
   let list = [];
   let value_method = options.value_method;
   let label_method = options.label_method;
-  let children = options.collection;
+  let children = options.collection || [];
   let type = options.type;
   let childAttributes = options.childAttributes != undefined ? options.childAttributes : {};
-  let conditional = options.conditional != undefined ? options.conditional : {index: -1, attributes: {}};
+  let conditional = options.conditional != undefined ? options.conditional : {index: -1, searchValue: '', attributes: {}};
 
   children.map((child, index) => {
-    // If, attributes need to be update on a some specific child
-    if(conditional.index == index){
+    let value = child;
+    let label = child;
+    if(typeof(child) == 'object' && label_method != null && value_method != null){
+      value = child[value_method];
+      label = child[label_method];
+    }
+    // If, attributes need to be update on some specific child
+    if(conditional.index == index || conditional.searchValue == value){
       childAttributes = mergeAttributes(childAttributes, conditional.attributes);
     }
-    let ChildItem = typeof(child) == 'object' && label_method != null && value_method != null ? renderGenericComponent(type, child[value_method], child[label_method], childAttributes) : renderGenericComponent(type, child, child, childAttributes);
+    let ChildItem = renderGenericComponent(type, child, label, childAttributes);
     list.push(ChildItem);
   })
   return list;
 }
+
