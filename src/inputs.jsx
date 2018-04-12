@@ -53,6 +53,7 @@ class Input extends React.Component {
       hintAttributes,
       errors,
       childrenOnly,
+      required,
       ...attributes
     } = this.props;
     let isValid = (errors == undefined);
@@ -65,7 +66,7 @@ class Input extends React.Component {
 					    'inputAttributes': inputAttributes});
     return (
       <FormGroup {...formGroupAttributes}>
-        <Label htmlFor={name} {...labelAttributes}>{label}</Label>
+        <Label htmlFor={name} {...labelAttributes}>{required ? (<abbr title="required">* </abbr>) : ''}{label}</Label>
         <Col {...inputSize}>
           {inputOrChildren}
           {isValid ? '' : (<FormFeedback valid={isValid}>{errors.join()}</FormFeedback>)}
