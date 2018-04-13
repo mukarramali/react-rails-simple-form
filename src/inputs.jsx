@@ -81,4 +81,5 @@ export class Input extends React.Component {
 Input.propTypes = propTypes;
 Input.defaultProps = defaultProps;
 
+export Input;
 
