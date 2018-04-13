@@ -16,7 +16,7 @@ const defaultProps = {
   hintAttributes: {color: 'muted'},
 };
 
-class Input extends React.Component {
+export class Input extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -80,5 +80,4 @@ class Input extends React.Component {
 Input.propTypes = propTypes;
 Input.defaultProps = defaultProps;
 
-export default Input;
 
