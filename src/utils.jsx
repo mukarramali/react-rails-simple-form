@@ -86,11 +86,15 @@ export const renderGenericChildren = (options)=>{
       value = child[value_method];
       label = child[label_method];
     }
+
+    let childAttr = {};
+    mergeAttributes(childAttr, childAttributes);
     // If, attributes need to be update on some specific child
     if(conditional.index == index || conditional.searchValue == value){
-      childAttributes = mergeAttributes(childAttributes, conditional.attributes);
+      mergeAttributes(childAttr, conditional.attributes);
     }
-    let ChildItem = renderGenericComponent(type, child, label, childAttributes);
+    let ChildItem = renderGenericComponent(type, child, label, childAttr);
+
     list.push(ChildItem);
   })
   return list;
