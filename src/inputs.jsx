@@ -29,13 +29,14 @@ export class Input extends React.Component {
       isValid,
       children,
       childrenOnly,
-      inputAttributes
+      ...attributes
     } = props;
     let invalidClass = isValid ? '' : 'is-invalid';
+    console.log("inputAttributes: "+Object.keys(attributes));
     return type=="radio" || childrenOnly ? children : (
-      <FormInput type={type || 'text'} className={invalidClass} name={name} defaultValue={value} {...inputAttributes}>
+      <Input type={type || 'text'} className={invalidClass} name={name} defaultValue={value} {...attributes}>
         {children}
-      </FormInput>);
+      </Input>);
   }
 
   render() {
@@ -49,7 +50,6 @@ export class Input extends React.Component {
       formGroupAttributes,
       labelAttributes,
       inputSize,
-      inputAttributes,
       hintAttributes,
       errors,
       childrenOnly,
@@ -57,13 +57,14 @@ export class Input extends React.Component {
       ...attributes
     } = this.props;
     let isValid = (errors == undefined);
-    let inputOrChildren = this.renderInput({'type': type, 
-                                            'name': name, 
-					    'value': value, 
-					    'isValid': isValid, 
-					    'children': children, 
-					    'childrenOnly': childrenOnly, 
-					    'inputAttributes': inputAttributes});
+    let inputOrChildren = this.renderInput({'type': type,
+                                            'name': name,
+                                            'value': value,
+                                            'isValid': isValid,
+                                            'children': children,
+                                            'childrenOnly': childrenOnly,
+                                            ...attributes
+                                          });
     return (
       <FormGroup {...formGroupAttributes}>
         <Label htmlFor={name} {...labelAttributes}>{required ? (<abbr title="required">* </abbr>) : ''}{label}</Label>
