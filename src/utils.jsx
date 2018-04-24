@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Input as ReactstrapInput } from 'reactstrap';
 import { BreadcrumbItem, FormGroup, Label } from 'reactstrap';
-import { Input } from './forms';
+import { Input } from './Forms';
 
 export const formHash = (parent, child)=>{
   return parent + '['+child+']';

@@ -1,6 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { nameWithContext, InputTag } from './utils';
+import { nameWithContext, InputTag } from './Utils';
 
 export const FormInput = nameWithContext(InputTag);
 
