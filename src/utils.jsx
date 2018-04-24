@@ -50,21 +50,34 @@ export const nameWithContext = (Lower, prop = "name") => {
 }
 
 const renderGenericComponent = (Type, value, label, attributes) => {
-  let key = getNewKey();
+  let key = Helpers.getNewKey();
   switch(Type){
     case 'BreadcrumbItem':
       return (<BreadcrumbItem key={key} {...attributes}>{value}</BreadcrumbItem>);
     case 'radio':
       return (<FormGroup check key={key}>
                 <Label check>
-                  <Input type="radio" key={key} {...attributes}/>
+                  <Input
+                    type="radio"
+                    key={key}
+                    value={value}
+                    {...attributes} />
                   {value}
                 </Label>
               </FormGroup>);
     case 'option':
-      return (<option key={key} value={value} {...attributes}>{label}</option>);
+      return (<option
+                key={key}
+                value={value}
+                {...attributes}>
+                  {label}
+              </option>);
     default:
-      return (<Type key={key} {...attributes}>{value}</Type>);
+      return (<Type
+                key={key}
+                {...attributes}>
+                  {value}
+              </Type>);
   }
 }
 
@@ -72,29 +85,28 @@ const renderGenericComponent = (Type, value, label, attributes) => {
 
 export const renderGenericChildren = (options)=>{
   let list = [];
-  let value_method = options.value_method;
-  let label_method = options.label_method;
+  let valueMethod = options.valueMethod;
+  let labelMethod = options.labelMethod;
   let children = options.collection || [];
   let type = options.type;
-  let childAttributes = options.childAttributes != undefined ? options.childAttributes : {};
-  let conditional = options.conditional != undefined ? options.conditional : {index: -1, searchValue: '', attributes: {}};
+  let childAttributes = options.childAttributes || {};
+  let conditional = options.conditional || {index: -1, searchValue: '', attributes: {}};
 
   children.map((child, index) => {
     let value = child;
     let label = child;
-    if(typeof(child) == 'object' && label_method != null && value_method != null){
-      value = child[value_method];
-      label = child[label_method];
+    if(typeof(child) == 'object' && labelMethod != null && valueMethod != null){
+      value = child[valueMethod];
+      label = child[labelMethod];
     }
-
     let childAttr = {};
-    mergeAttributes(childAttr, childAttributes);
+    Helpers.mergeAttributes(childAttr, childAttributes);
     // If, attributes need to be update on some specific child
     if(conditional.index == index || conditional.searchValue == value){
-      mergeAttributes(childAttr, conditional.attributes);
+      Helpers.mergeAttributes(childAttr, conditional.attributes);
+      console.log(childAttr.selected);
     }
-    let ChildItem = renderGenericComponent(type, child, label, childAttr);
-
+    let ChildItem = GenericComponent(type, child, label, childAttr);
     list.push(ChildItem);
   })
   return list;
