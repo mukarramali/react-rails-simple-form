@@ -81,34 +81,50 @@ const renderGenericComponent = (Type, value, label, attributes) => {
   }
 }
 
-//Example: {renderGenericChildren({collection: ['Profile', 'Personal'], type: 'BreadcrumbItem', conditional: {index: 1, attributes: 'active'}})}
+// <GenericChildren
+//                   collection={props.collection}
+//                   type="BreadcrumbItem"
+//                   conditional={{index: 1, attributes: {className: 'active'}}} />
+export class GenericChildren extends React.Component{
 
-export const renderGenericChildren = (options)=>{
-  let list = [];
-  let valueMethod = options.valueMethod;
-  let labelMethod = options.labelMethod;
-  let children = options.collection || [];
-  let type = options.type;
-  let childAttributes = options.childAttributes || {};
-  let conditional = options.conditional || {index: -1, searchValue: '', attributes: {}};
-
-  children.map((child, index) => {
-    let value = child;
-    let label = child;
-    if(typeof(child) == 'object' && labelMethod != null && valueMethod != null){
-      value = child[valueMethod];
-      label = child[labelMethod];
-    }
-    let childAttr = {};
-    Helpers.mergeAttributes(childAttr, childAttributes);
-    // If, attributes need to be update on some specific child
-    if(conditional.index == index || conditional.searchValue == value){
-      Helpers.mergeAttributes(childAttr, conditional.attributes);
-      console.log(childAttr.selected);
-    }
-    let ChildItem = GenericComponent(type, child, label, childAttr);
-    list.push(ChildItem);
-  })
-  return list;
+  render(){
+    let {
+      valueMethod,
+      labelMethod,
+      collection,
+      type,
+      childAttributes,
+      conditional
+    } = this.props;
+    let list = [];
+    collection.map((child, index) => {
+      let value = child;
+      let label = child;
+      if(typeof(child) == 'object' && labelMethod != null && valueMethod != null){
+        value = child[valueMethod];
+        label = child[labelMethod];
+      }
+      let childAttr = {};
+      Helpers.mergeAttributes(childAttr, childAttributes);
+      // If, attributes need to be update on some specific child
+      if(conditional.index == index || conditional.searchValue == value){
+        Helpers.mergeAttributes(childAttr, conditional.attributes);
+        console.log(childAttr.selected);
+      }
+      let ChildItem = renderGenericComponent(type, child, label, childAttr);
+      list.push(ChildItem);
+    })
+    return list;
+  }
 }
+
+const defaultProps = {
+  list: [],
+  collection: [],
+  childAttributes: {},
+  conditional: {index: -1, searchValue: '', attributes: {}},
+};
+
+GenericChildren.defaultProps = defaultProps;
+
 
