@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {FormFeedback, FormText, FormGroup, Label, Col} from 'reactstrap'
+import { FormFeedback, FormText, FormGroup, Label, Col } from 'reactstrap'
 import { FormInput } from './Forms';
+import { GenericChildren } from './Utils';
 
 const propTypes = {
   children: PropTypes.node,
