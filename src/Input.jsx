@@ -14,6 +14,7 @@ const defaultProps = {
   inputAttributes: {},
   inputSize: {sm: 9},
   hintAttributes: {color: 'muted'},
+  childAttributes: {},
 };
 
 class Input extends React.Component {
@@ -54,9 +55,23 @@ class Input extends React.Component {
       errors,
       childrenOnly,
       required,
+      collection,
+      conditional, //{index: 2, searchValue: profile.base.category, attributes: {selected: 'selected', value: profile.base.category}}
+      childAttributes,      
       ...attributes
     } = this.props;
     let isValid = (errors == undefined);
+
+    if(collection)
+    {
+      children =
+        <GenericChildren
+            collection={collection}
+            type={GenericChildrenTypes[type] || type}
+            conditional={conditional}
+            childAttributes={childAttributes}/>;
+    }
+
     let inputOrChildren = this.renderInput({'type': type,
                                             'name': name,
                                             'value': value,
